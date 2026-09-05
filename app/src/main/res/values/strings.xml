@@ -95,9 +95,10 @@
 <string name="torque_min">最小扭力</string>
 <string name="torque_max">最大扭力</string>
 <string name="torque_avg">平均扭力</string>
-<string name="esp32_from_ct_err">ESP32 <- 控制器通訊錯誤</string>
-<string name="esp32_from_lcd_err">ESP32 <- LCD 通訊錯誤</string>
-<string name="ct_from_esp32_err">控制器 <- ESP32 通訊錯誤</string>
+​<!-- 修正了這三行的箭頭符號，避免 Android XML 解析錯誤 -->
+<string name="esp32_from_ct_err">ESP32 接收控制器通訊錯誤</string>
+<string name="esp32_from_lcd_err">ESP32 接收 LCD 通訊錯誤</string>
+<string name="ct_from_esp32_err">控制器接收 ESP32 通訊錯誤</string>
 ​<string name="tsdz_cfg">單車設定</string>
 <string name="title_activity_esp32_ota">Esp32 韌體更新</string>
 <string name="title_activity_stm8_ota">單車韌體更新</string>
