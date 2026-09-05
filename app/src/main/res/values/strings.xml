@@ -95,7 +95,6 @@
 <string name="torque_min">最小扭力</string>
 <string name="torque_max">最大扭力</string>
 <string name="torque_avg">平均扭力</string>
-​<!-- 修正了這三行的箭頭符號，避免 Android XML 解析錯誤 -->
 <string name="esp32_from_ct_err">ESP32 接收控制器通訊錯誤</string>
 <string name="esp32_from_lcd_err">ESP32 接收 LCD 通訊錯誤</string>
 <string name="ct_from_esp32_err">控制器接收 ESP32 通訊錯誤</string>
@@ -164,7 +163,7 @@
 <string name="cruise_mode_enabled">啟用巡航模式</string>
 <string name="street_mode_throttle">啟用油門</string>
 <string name="wheel_perimeter">輪圈周長 (毫米)</string>
-<string name="range_error">數值必須介於 %1d 與 \%2d 之間</string>
+<string name="range_error" formatted="false">數值必須介於 %1d 與 \%2d 之間</string>
 <string name="write_cfg_error">無法更新設定</string>
 <string name="read_cfg_error">無法讀取設定</string>
 <string name="esp32_cfg_error">ESP32 資料錯誤\nAndroid 應用程式與 ESP32 韌體不相容？</string>
@@ -257,7 +256,7 @@
 <string name="calibrationApplied">已套用校正資料</string>
 <string name="calibrationDataValid">校正結束。\n按下「儲存」以套用校正資料</string>
 <string name="calibrationDataNotValid">校正資料無效。\n請重試校正程序</string>
-<string name="warningMotorStart">請將後輪抬高或取下鏈條。\n馬達即將開始旋轉！</string>
+<string name="warningMotorStart">請將後輪抬高或取下鏈條。\n馬達即這次即將開始旋轉！</string>
 <string name="cfgReadError">讀取設定資料錯誤</string>
 <string name="cfgSaved">設定資料已儲存</string>
 <string name="cfgSaveError">儲存設定資料錯誤</string>
@@ -311,4 +310,4 @@
 ​<!--  Chart Values -->
 <string name="bike_sessions">單車行程</string>
 <string name="data_select">選擇資料</string>
-​</resources> 
+​</resources>
