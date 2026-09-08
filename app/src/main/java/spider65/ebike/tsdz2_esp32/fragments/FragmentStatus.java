@@ -1,7 +1,6 @@
 package spider65.ebike.tsdz2_esp32.fragments;
 
 import android.os.Bundle;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import spider65.ebike.tsdz2_esp32.R;
@@ -15,10 +14,7 @@ import android.view.ViewGroup;
 
 import org.jetbrains.annotations.NotNull;
 
-
-//public class FragmentStatus extends Fragment implements View.OnLongClickListener, MyFragmentListener {
 public class FragmentStatus extends Fragment implements MyFragmentListener {
-
     private static final String TAG = "FragmentStatus";
 
     public static class FragmentData {
@@ -29,6 +25,7 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         public float amperes;
         public float motorTemperature;
         public int wattHour;
+        public short soc; // 新增的 SOC 變數
 
         private boolean update(TSDZ_Status newStatus) {
             boolean changed = false;
@@ -60,6 +57,11 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
                 wattHour = newStatus.wattHour;
                 changed = true;
             }
+            // 新增 SOC 的數值更新邏輯
+            if (newStatus.soc != soc) {
+                soc = newStatus.soc;
+                changed = true;
+            }
             return changed;
         }
     }
@@ -67,12 +69,6 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     private FragmentStatusBinding binding;
     private final FragmentData viewData = new FragmentData();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment FragmentStatus.
-     */
     public static FragmentStatus newInstance(TSDZ_Status status) {
         return new FragmentStatus(status);
     }
@@ -105,23 +101,9 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         binding.invalidateAll();
     }
 
-    // TODO
-    // Visualizzazione grafici
-    /*
-    @Override
-    public boolean onLongClick(View v) {
-        switch (v.getId()) {
-            case R.id.speedValueTV:
-            case R.id.cadenceValueTV:
-                break;
-        }
-        return false;
-    }
-    */
-
     @Override
     public void refreshView(TSDZ_Status newStatus) {
         if (viewData.update(newStatus) && isVisible())
             binding.invalidateAll();
     }
-}
+}       
