@@ -3,9 +3,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "Jk-bms" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "Jk-bms" ]
 
 jobs:
   build:
