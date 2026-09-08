@@ -1,3 +1,4 @@
+<!-- app/src/main/res/layout/fragment_status.xml -->
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -172,7 +173,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz5">
     </FrameLayout>
 
-    <!-- Speed -->
     <TextView
         android:id="@+id/speedTV"
         android:layout_width="wrap_content"
@@ -197,7 +197,6 @@
         app:layout_constraintTop_toBottomOf="@+id/horiz1"
         app:layout_constraintVertical_bias="0.6" />
 
-    <!-- Cadence -->
     <TextView
         android:id="@+id/cadenceTV"
         android:layout_width="wrap_content"
@@ -222,7 +221,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz1"
         app:layout_constraintVertical_bias="0.6"/>
 
-    <!-- Motor Power -->
     <TextView
         android:id="@+id/mWattTV"
         android:layout_width="wrap_content"
@@ -247,7 +245,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz2"
         app:layout_constraintVertical_bias="0.6"/>
 
-    <!-- Pedal Power -->
     <TextView
         android:id="@+id/pPowerTV"
         android:layout_width="wrap_content"
@@ -272,7 +269,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz2"
         app:layout_constraintVertical_bias="0.6"/>
 
-    <!-- Battery Current -->
     <TextView
         android:id="@+id/currentTV"
         android:layout_width="wrap_content"
@@ -297,7 +293,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz3"
         app:layout_constraintVertical_bias="0.6"/>
 
-    <!-- Voltage -->
     <TextView
         android:id="@+id/voltageTV"
         android:layout_width="wrap_content"
@@ -322,7 +317,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz3"
         app:layout_constraintVertical_bias="0.6" />
 
-    <!-- Motor Temp -->
     <TextView
         android:id="@+id/temperatureTV"
         android:layout_width="wrap_content"
@@ -347,7 +341,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz4"
         app:layout_constraintVertical_bias="0.6" />
 
-    <!-- Watt Hour -->
     <TextView
         android:id="@+id/wattHourTV"
         android:layout_width="wrap_content"
@@ -372,7 +365,6 @@
         app:layout_constraintTop_toTopOf="@+id/horiz4"
         app:layout_constraintVertical_bias="0.6" />
 
-    <!-- SOC -->
     <TextView
         android:id="@+id/socTV"
         android:layout_width="wrap_content"
@@ -397,25 +389,24 @@
         app:layout_constraintTop_toTopOf="@+id/horiz5"
         app:layout_constraintVertical_bias="0.6" />
 
-    <!-- Controller Temp -->
     <TextView
-        android:id="@+id/cTempTV"
+        android:id="@+id/dutyCycleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/controller_temp"
+        android:text="@string/duty_cycle"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintTop_toTopOf="@+id/horiz5"
-        app:layout_constraintBottom_toTopOf="@+id/cTempValueTV"
+        app:layout_constraintBottom_toTopOf="@+id/dutyCycleValueTV"
         app:layout_constraintEnd_toStartOf="@+id/vert2GL"
         app:layout_constraintStart_toStartOf="@+id/vert2GL" />
 
     <TextView
-        android:id="@+id/cTempValueTV"
+        android:id="@+id/dutyCycleValueTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="32sp"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:text="@{@string/temperatureField(tsdz_status.pcbTemperature)}"
+        android:text="@{String.valueOf(tsdz_status.dutyCycle)}"
         app:layout_constraintBottom_toTopOf="@+id/horiz6"
         app:layout_constraintEnd_toStartOf="@+id/vert2GL"
         app:layout_constraintStart_toStartOf="@+id/vert2GL"

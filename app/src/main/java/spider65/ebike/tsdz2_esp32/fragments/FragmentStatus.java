@@ -1,3 +1,4 @@
+// app/src/main/java/spider65/ebike/tsdz2_esp32/fragments/FragmentStatus.java
 package spider65.ebike.tsdz2_esp32.fragments;
 
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         public float motorTemperature;
         public int wattHour;
         public short soc;
-        public float pcbTemperature; // 新增：控制器溫度
+        public short dutyCycle;
 
         private boolean update(TSDZ_Status newStatus) {
             boolean changed = false;
@@ -62,8 +63,8 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
                 soc = newStatus.soc;
                 changed = true;
             }
-            if (newStatus.pcbTemperature != pcbTemperature) {
-                pcbTemperature = newStatus.pcbTemperature;
+            if (newStatus.dutyCycle != dutyCycle) {
+                dutyCycle = newStatus.dutyCycle;
                 changed = true;
             }
             return changed;
