@@ -803,4 +803,4 @@ public class ChartActivity extends AppCompatActivity implements LogManager.LogRe
         dataDialog.show();
         mAdapter.notifyDataSetChanged();
     }
-}
+} 
