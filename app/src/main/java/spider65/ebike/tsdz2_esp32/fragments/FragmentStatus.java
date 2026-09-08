@@ -25,7 +25,8 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         public float amperes;
         public float motorTemperature;
         public int wattHour;
-        public short soc; // 新增的 SOC 變數
+        public short soc;
+        public float pcbTemperature; // 新增：控制器溫度
 
         private boolean update(TSDZ_Status newStatus) {
             boolean changed = false;
@@ -57,9 +58,12 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
                 wattHour = newStatus.wattHour;
                 changed = true;
             }
-            // 新增 SOC 的數值更新邏輯
             if (newStatus.soc != soc) {
                 soc = newStatus.soc;
+                changed = true;
+            }
+            if (newStatus.pcbTemperature != pcbTemperature) {
+                pcbTemperature = newStatus.pcbTemperature;
                 changed = true;
             }
             return changed;
@@ -88,7 +92,6 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_status, container, false);
         binding.setTsdzStatus(viewData);
         return binding.getRoot();
@@ -97,7 +100,6 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     @Override
     public void onResume() {
         super.onResume();
-        // Data could be changed when fragment was not visible. Refresh the view
         binding.invalidateAll();
     }
 
@@ -106,4 +108,4 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         if (viewData.update(newStatus) && isVisible())
             binding.invalidateAll();
     }
-}       
+}

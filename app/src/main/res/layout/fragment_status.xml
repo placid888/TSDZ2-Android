@@ -397,5 +397,30 @@
         app:layout_constraintTop_toTopOf="@+id/horiz5"
         app:layout_constraintVertical_bias="0.6" />
 
+    <!-- Controller Temp -->
+    <TextView
+        android:id="@+id/cTempTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/controller_temp"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintTop_toTopOf="@+id/horiz5"
+        app:layout_constraintBottom_toTopOf="@+id/cTempValueTV"
+        app:layout_constraintEnd_toStartOf="@+id/vert2GL"
+        app:layout_constraintStart_toStartOf="@+id/vert2GL" />
+
+    <TextView
+        android:id="@+id/cTempValueTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:text="@{@string/temperatureField(tsdz_status.pcbTemperature)}"
+        app:layout_constraintBottom_toTopOf="@+id/horiz6"
+        app:layout_constraintEnd_toStartOf="@+id/vert2GL"
+        app:layout_constraintStart_toStartOf="@+id/vert2GL"
+        app:layout_constraintTop_toTopOf="@+id/horiz5"
+        app:layout_constraintVertical_bias="0.6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-</layout> 
+</layout>
