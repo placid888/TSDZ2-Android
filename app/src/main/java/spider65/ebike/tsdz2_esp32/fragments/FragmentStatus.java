@@ -121,3 +121,4 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
             default: return TelemetryType.SPEED;
         }
     }
+}
