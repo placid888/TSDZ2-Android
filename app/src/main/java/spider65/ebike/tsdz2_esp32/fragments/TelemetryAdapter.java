@@ -110,4 +110,4 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
             tvValue = itemView.findViewById(R.id.tv_value);
         }
     }
-}<>
+}
