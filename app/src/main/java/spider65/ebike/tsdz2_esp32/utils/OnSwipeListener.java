@@ -7,6 +7,12 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        
+        // [新增防護]：防止滑動手勢被中途攔截導致 e1 或 e2 變成 null 而閃退
+        if (e1 == null || e2 == null) {
+            return false;
+        }
+
         //Log.d("OnSwipeListener", "onFling");
 
         // Grab two events located on the plane at e1=(x1, y1) and e2=(x2, y2)
