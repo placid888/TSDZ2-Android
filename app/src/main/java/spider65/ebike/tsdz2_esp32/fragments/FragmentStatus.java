@@ -2,6 +2,8 @@ package spider65.ebike.tsdz2_esp32.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,14 +33,15 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(false);
         loadGridConfig();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_status, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
@@ -86,7 +89,7 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
 
     private void showSelectionDialog(final int position) {
         if (getContext() == null) return;
-        
+
         final TelemetryType[] allTypes = TelemetryType.values();
         String[] displayNames = new String[allTypes.length];
         for (int i = 0; i < allTypes.length; i++) {
@@ -94,7 +97,7 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle("選擇顯示資訊")
+                .setTitle("Select Telemetry")
                 .setItems(displayNames, (dialog, which) -> {
                     gridConfig.set(position, allTypes[which]);
                     adapter.notifyItemChanged(position);
