@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Locale;
@@ -37,9 +36,8 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
         notifyDataSetChanged();
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_telemetry, parent, false);
 
@@ -53,7 +51,7 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         TelemetryType type = items.get(position);
         holder.tvTitle.setText(type.displayName);
 
@@ -65,8 +63,11 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
 
         holder.itemView.setOnLongClickListener(v -> {
             if (longClickListener != null) {
-                longClickListener.onItemLongClick(position);
-                return true;
+                int adapterPos = holder.getAdapterPosition();
+                if (adapterPos != RecyclerView.NO_POSITION) {
+                    longClickListener.onItemLongClick(adapterPos);
+                    return true;
+                }
             }
             return false;
         });
