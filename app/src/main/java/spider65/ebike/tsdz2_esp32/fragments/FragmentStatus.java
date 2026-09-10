@@ -93,11 +93,11 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         final TelemetryType[] allTypes = TelemetryType.values();
         String[] displayNames = new String[allTypes.length];
         for (int i = 0; i < allTypes.length; i++) {
-            displayNames[i] = allTypes[i].displayName;
+            displayNames[i] = getString(allTypes[i].nameResId);
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Select Telemetry")
+                .setTitle(R.string.dialog_select_telemetry)
                 .setItems(displayNames, (dialog, which) -> {
                     gridConfig.set(position, allTypes[which]);
                     adapter.notifyItemChanged(position);

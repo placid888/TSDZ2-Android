@@ -52,10 +52,12 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
         return new ViewHolder(view);
     }
 
-    @Override
+        @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TelemetryType type = items.get(position);
-        holder.tvTitle.setText(type.displayName);
+        
+        // 透過 Resource ID 自動顯示對應語系的字串
+        holder.tvTitle.setText(type.nameResId);
 
         if (currentStatus != null) {
             holder.tvValue.setText(formatValue(type, currentStatus));
