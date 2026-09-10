@@ -46,7 +46,7 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         adapter = new TelemetryAdapter(gridConfig, currentStatus);
-        adapter.setOnItemLongClickListener(this::showSelectionDialog);
+        adapter.setOnItemLongClickListener(position -> showSelectionDialog(position));
         recyclerView.setAdapter(adapter);
 
         return view;
