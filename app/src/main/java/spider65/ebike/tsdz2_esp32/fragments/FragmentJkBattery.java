@@ -38,17 +38,17 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setPadding(24, 24, 24, 24);
 
-        // 1. 上方完整總覽資訊
+        // 1. 上方完整總覽資訊 (改為深色字體，避免在淺色背景下消失)
         tvSummary = new TextView(getContext());
         tvSummary.setTextSize(15);
-        tvSummary.setTextColor(Color.WHITE);
+        tvSummary.setTextColor(Color.parseColor("#333333"));
         tvSummary.setPadding(8, 8, 8, 20);
         rootLayout.addView(tvSummary);
 
         // 標題：單體電壓
         TextView tvTitleVolt = new TextView(getContext());
         tvTitleVolt.setText("【單體電壓 (V)】");
-        tvTitleVolt.setTextColor(Color.parseColor("#4CAF50"));
+        tvTitleVolt.setTextColor(Color.parseColor("#2E7D32"));
         tvTitleVolt.setTextSize(16);
         tvTitleVolt.setPadding(0, 16, 0, 8);
         rootLayout.addView(tvTitleVolt);
@@ -61,7 +61,7 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
         // 標題：均衡線電阻
         TextView tvTitleRes = new TextView(getContext());
         tvTitleRes.setText("【均衡線電阻 (Ω)】");
-        tvTitleRes.setTextColor(Color.parseColor("#4CAF50"));
+        tvTitleRes.setTextColor(Color.parseColor("#2E7D32"));
         tvTitleRes.setTextSize(16);
         tvTitleRes.setPadding(0, 24, 0, 8);
         rootLayout.addView(tvTitleRes);
@@ -120,8 +120,8 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
                 
                 cellView.setText(String.format(Locale.getDefault(), "Cell %02d\n%.3f V", (i + 1), voltageMv / 1000.0f));
                 cellView.setTextSize(13);
-                cellView.setTextColor(Color.WHITE);
-                cellView.setBackgroundColor(Color.parseColor("#2A2A2A"));
+                cellView.setTextColor(Color.parseColor("#222222"));
+                cellView.setBackgroundColor(Color.parseColor("#E0E0E0"));
                 cellView.setPadding(16, 16, 16, 16);
                 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
@@ -145,8 +145,8 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
                 
                 resView.setText(String.format(Locale.getDefault(), "Cell %02d\n%.3f Ω", (i + 1), resistance));
                 resView.setTextSize(13);
-                resView.setTextColor(Color.WHITE);
-                resView.setBackgroundColor(Color.parseColor("#2A2A2A"));
+                resView.setTextColor(Color.parseColor("#222222"));
+                resView.setBackgroundColor(Color.parseColor("#E0E0E0"));
                 resView.setPadding(16, 16, 16, 16);
                 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
