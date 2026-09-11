@@ -26,6 +26,10 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     private TSDZ_Status currentStatus;
     private final List<TelemetryType> gridConfig = new ArrayList<>();
 
+    // === 新增：Fragment 專用 UI 刷新節流閥 ===
+    private long lastUpdateTime = 0;
+    private static final long UPDATE_INTERVAL = 250; // 控制卡片每 250 毫秒才更新一次
+
     public static FragmentStatus newInstance(TSDZ_Status status) {
         FragmentStatus fragment = new FragmentStatus();
         fragment.currentStatus = status;
@@ -58,7 +62,12 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
     public void refreshView(TSDZ_Status newStatus) {
         currentStatus = newStatus;
         if (adapter != null && isVisible()) {
-            adapter.updateStatus(newStatus);
+            // === 修改：加入時間判斷，阻擋過於頻繁的更新 ===
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastUpdateTime > UPDATE_INTERVAL) {
+                adapter.updateStatus(newStatus);
+                lastUpdateTime = currentTime;
+            }
         }
     }
 
