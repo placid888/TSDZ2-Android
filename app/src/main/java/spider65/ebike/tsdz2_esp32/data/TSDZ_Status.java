@@ -13,28 +13,20 @@ public class TSDZ_Status {
     public float speed;
     public short cadence;
     public float motorTemperature;
-     // === 極空 BMS 變數 ===
-         // === 極空 BMS 完整詳細數據 ===
-    public float jkVoltage = 0;          // 總電壓
+
+    // === 極空 BMS 完整詳細數據 (已清除重複宣告) ===
+    public float jkVoltage = 0;              // BMS 總電壓
+    public float jkCurrent = 0;              // BMS 總電流
+    public int jkSoc = 0;                    // 剩餘電量 %
+    public float jkTempFet = 0;              // 功率管溫度
+    public float jkTempBat = 0;              // 電池組溫度
+    public int jkCellMaxMv = 0;              // 最高單體電壓 (mV)
+    public int jkCellMinMv = 0;              // 最低單體電壓 (mV)
+    public int jkDeltaMv = 0;                // 最大壓差 (mV)
+    public boolean jkConnected = false;      // BMS 連線狀態
     public int activeCellCount = 13;         // 目前有效串數 (預設 13)
     public int[] cellVoltages = new int[17]; // 支援最高 17 串單體電壓 (單位: mV)
-    public float jkCurrent = 0;          // 總電流
-    public int jkSoc = 0;                // 剩餘電量 %
-    public float jkTempFet = 0;          // MOS 溫度
-    public float jkTempBat = 0;          // 電池溫度
-    public int jkCellMaxMv = 0;          // 最高單串電壓 (mV)
-    public int jkCellMinMv = 0;          // 最低單串電壓 (mV)
-    public int jkDeltaMv = 0;            // 最大壓差 (mV)
-    public int activeCellCount = 13;     // 目前有效串數 (預設 13，可隨 BMS 狀態動態調整)
-    public int[] cellVoltages = new int[17]; // 支援最高 17 串單體電壓 (單位: mV)
-    public float jkVoltage = 0;          // BMS 總電壓
-    public float jkCurrent = 0;          // BMS 總電流
-    public int jkSoc = 0;                // 剩餘電量 %
-    public float jkTempFet = 0;          // 功率管溫度
-    public float jkTempBat = 0;          // 電池組溫度
-    public int jkCellMaxMv = 0;          // 最高單體電壓 (mV)
-    public int jkCellMinMv = 0;          // 最低單體電壓 (mV)
-    public boolean jkConnected = false; 
+
     public int pPower;
     public float volts;
     public float amperes;
@@ -143,6 +135,24 @@ public class TSDZ_Status {
         debug5 = (short)(data[37] & 255);
         debug6 = (short)(data[38] & 255);
         soc = (short)(data[38] & 255); 
+
+        // === 若封包大小包含極空 BMS 數據，可在此處進行額外解析 ===
+        if (data.length >= 53) {
+            int rawJkVolt = ((data[40] & 0xFF) << 8) | (data[39] & 0xFF);
+            jkVoltage = rawJkVolt / 100.0f;
+
+            int rawJkCurr = ((data[42] & 0xFF) << 8) | (data[41] & 0xFF);
+            jkCurrent = (short) rawJkCurr / 100.0f;
+
+            jkSoc = data[43] & 0xFF;
+            jkTempFet = data[44] & 0xFF;
+            jkTempBat = data[45] & 0xFF;
+
+            jkCellMaxMv = ((data[47] & 0xFF) << 8) | (data[46] & 0xFF);
+            jkCellMinMv = ((data[49] & 0xFF) << 8) | (data[48] & 0xFF);
+            jkDeltaMv = jkCellMaxMv - jkCellMinMv;
+            jkConnected = true;
+        }
         
         return true;
     }
