@@ -13,6 +13,15 @@ public class TSDZ_Status {
     public float speed;
     public short cadence;
     public float motorTemperature;
+     // === 極空 BMS 變數 ===
+    public float jkVoltage = 0;          // BMS 總電壓
+    public float jkCurrent = 0;          // BMS 總電流
+    public int jkSoc = 0;                // 剩餘電量 %
+    public float jkTempFet = 0;          // 功率管溫度
+    public float jkTempBat = 0;          // 電池組溫度
+    public int jkCellMaxMv = 0;          // 最高單體電壓 (mV)
+    public int jkCellMinMv = 0;          // 最低單體電壓 (mV)
+    public boolean jkConnected = false; 
     public int pPower;
     public float volts;
     public float amperes;
