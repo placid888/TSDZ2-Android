@@ -14,18 +14,28 @@ public class TSDZ_Status {
     public short cadence;
     public float motorTemperature;
 
-    // === 極空 BMS 完整詳細數據 (已清除重複宣告) ===
+    // === 極空 BMS 完整詳細數據 ===
     public float jkVoltage = 0;              // BMS 總電壓
     public float jkCurrent = 0;              // BMS 總電流
+    public float jkPower = 0;                // 電池功率 (W)
     public int jkSoc = 0;                    // 剩餘電量 %
     public float jkTempFet = 0;              // 功率管溫度
-    public float jkTempBat = 0;              // 電池組溫度
+    public float jkTempBat = 0;              // 電池溫度 1
+    public float jkTempBat2 = 0;             // 電池溫度 2
     public int jkCellMaxMv = 0;              // 最高單體電壓 (mV)
     public int jkCellMinMv = 0;              // 最低單體電壓 (mV)
+    public int jkCellAvgMv = 0;              // 單體平均電壓 (mV)
     public int jkDeltaMv = 0;                // 最大壓差 (mV)
+    public float jkBalCurrent = 0;           // 均衡電流 (A)
+    public int jkCycleCount = 0;             // 循環次數
+    public float jkCycleCap = 0;             // 循環容量 (Ah)
+    public float jkTotalCap = 0;             // 電池容量 (Ah)
+    public float jkRemainCap = 0;            // 剩餘容量 (Ah)
+    public boolean jkBalancingOn = false;    // 均衡狀態
     public boolean jkConnected = false;      // BMS 連線狀態
     public int activeCellCount = 13;         // 目前有效串數 (預設 13)
-    public int[] cellVoltages = new int[17]; // 支援最高 17 串單體電壓 (單位: mV)
+    public int[] cellVoltages = new int[17];         // 17串單體電壓 (mV)
+    public float[] cellResistances = new float[17];  // 17串均衡線電阻 (Ω)
 
     public int pPower;
     public float volts;
@@ -136,13 +146,14 @@ public class TSDZ_Status {
         debug6 = (short)(data[38] & 255);
         soc = (short)(data[38] & 255); 
 
-        // === 若封包大小包含極空 BMS 數據，可在此處進行額外解析 ===
+        // === 解析極空 BMS 數據 ===
         if (data.length >= 53) {
             int rawJkVolt = ((data[40] & 0xFF) << 8) | (data[39] & 0xFF);
             jkVoltage = rawJkVolt / 100.0f;
 
             int rawJkCurr = ((data[42] & 0xFF) << 8) | (data[41] & 0xFF);
             jkCurrent = (short) rawJkCurr / 100.0f;
+            jkPower = jkVoltage * jkCurrent;
 
             jkSoc = data[43] & 0xFF;
             jkTempFet = data[44] & 0xFF;
@@ -150,6 +161,7 @@ public class TSDZ_Status {
 
             jkCellMaxMv = ((data[47] & 0xFF) << 8) | (data[46] & 0xFF);
             jkCellMinMv = ((data[49] & 0xFF) << 8) | (data[48] & 0xFF);
+            jkCellAvgMv = (jkCellMaxMv + jkCellMinMv) / 2;
             jkDeltaMv = jkCellMaxMv - jkCellMinMv;
             jkConnected = true;
         }
