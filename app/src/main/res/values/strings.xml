@@ -310,5 +310,8 @@
 ​<!--  Chart Values -->
 <string name="bike_sessions">單車行程</string>
 <string name="data_select">選擇資料</string>
+<string name="telemetry_fw_offset">弱磁偏移量</string>
+<string name="telemetry_torque_smooth_pct">扭力平滑度</string>
+<string name="dialog_select_telemetry">選擇資料</string> 
 
 ​</resources> 
