@@ -16,6 +16,8 @@ public class TSDZ_Status {
      // === 極空 BMS 變數 ===
          // === 極空 BMS 完整詳細數據 ===
     public float jkVoltage = 0;          // 總電壓
+    public int activeCellCount = 13;         // 目前有效串數 (預設 13)
+    public int[] cellVoltages = new int[17]; // 支援最高 17 串單體電壓 (單位: mV)
     public float jkCurrent = 0;          // 總電流
     public int jkSoc = 0;                // 剩餘電量 %
     public float jkTempFet = 0;          // MOS 溫度
