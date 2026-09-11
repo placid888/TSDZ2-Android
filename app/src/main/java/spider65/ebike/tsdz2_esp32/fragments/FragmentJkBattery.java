@@ -45,9 +45,9 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
         tvSummary.setPadding(16, 16, 16, 24);
         rootLayout.addView(tvSummary);
 
-        // 2. 下方各串電壓動態網格 (每行排 2 個或 3 個)
+        // 2. 下方各串電壓動態網格 (兩欄式排列)
         cellGridLayout = new GridLayout(getContext());
-        cellGridLayout.setColumnCount(2); // 兩欄式排列
+        cellGridLayout.setColumnCount(2);
         rootLayout.addView(cellGridLayout);
 
         scrollView.addView(rootLayout);
