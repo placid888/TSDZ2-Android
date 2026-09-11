@@ -32,9 +32,13 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
         this.longClickListener = listener;
     }
 
+    // === 核心修改 1：捨棄暴力的 notifyDataSetChanged，改用帶 Payload 的局部更新 ===
     public void updateStatus(TSDZ_Status newStatus) {
         this.currentStatus = newStatus;
-        notifyDataSetChanged();
+        if (items != null && !items.isEmpty()) {
+            // 傳遞 newStatus 作為 payload，告訴系統「只要更新數值」
+            notifyItemRangeChanged(0, items.size(), newStatus); 
+        }
     }
 
     @NonNull
@@ -52,7 +56,22 @@ public class TelemetryAdapter extends RecyclerView.Adapter<TelemetryAdapter.View
         return new ViewHolder(view);
     }
 
-        @Override
+    // === 核心修改 2：新增處理 Payload 的 onBindViewHolder，只更新 TextView 的數字 ===
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty() && payloads.get(0) instanceof TSDZ_Status) {
+            // 如果收到了局部更新要求，我們就只更新數值 (tvValue)，絕對不去動標題和排版
+            TelemetryType type = items.get(position);
+            TSDZ_Status updatedStatus = (TSDZ_Status) payloads.get(0);
+            holder.tvValue.setText(formatValue(type, updatedStatus));
+        } else {
+            // 如果是第一次建立卡片，才去執行完整的 UI 綁定
+            super.onBindViewHolder(holder, position, payloads);
+        }
+    }
+
+    // 這是原本完整綁定 UI 的函數，保持不變，只在卡片第一次出現或切換模式時呼叫
+    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TelemetryType type = items.get(position);
         
