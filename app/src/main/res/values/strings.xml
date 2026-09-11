@@ -310,22 +310,5 @@
 ​<!--  Chart Values -->
 <string name="bike_sessions">單車行程</string>
 <string name="data_select">選擇資料</string>
-<string name="telemetry_speed">Speed</string>
-<string name="telemetry_cadence">Cadence</string>
-<string name="telemetry_motor_power">Motor Power</string>
-<string name="telemetry_pedal_power">Pedal Power</string>
-<string name="telemetry_battery_current">Battery Curr</string>
-<string name="telemetry_battery_voltage">Battery Volt</string>
-<string name="telemetry_motor_temp">Motor Temp</string>
-<string name="telemetry_pcb_temp">PCB Temp</string>
-<string name="telemetry_watt_hour">Energy</string>
-<string name="telemetry_soc">SOC</string>
-<string name="telemetry_duty_cycle">Duty Cycle</string>
-<string name="telemetry_foc_angle">FOC Angle</string>
-<string name="telemetry_pedal_torque">Pedal Torque</string>
-<string name="telemetry_torque_adc">Torque ADC</string>
-<string name="telemetry_motor_erps">Motor ERPS</string>
-<string name="telemetry_fw_offset">FW Offset</string>
-<string name="telemetry_torque_smooth_pct">Torque Smooth</string>
-<string name="dialog_select_telemetry">Select Telemetry</string>
+
 ​</resources> 
