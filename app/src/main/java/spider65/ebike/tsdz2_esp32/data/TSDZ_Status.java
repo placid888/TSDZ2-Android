@@ -14,6 +14,17 @@ public class TSDZ_Status {
     public short cadence;
     public float motorTemperature;
      // === 極空 BMS 變數 ===
+         // === 極空 BMS 完整詳細數據 ===
+    public float jkVoltage = 0;          // 總電壓
+    public float jkCurrent = 0;          // 總電流
+    public int jkSoc = 0;                // 剩餘電量 %
+    public float jkTempFet = 0;          // MOS 溫度
+    public float jkTempBat = 0;          // 電池溫度
+    public int jkCellMaxMv = 0;          // 最高單串電壓 (mV)
+    public int jkCellMinMv = 0;          // 最低單串電壓 (mV)
+    public int jkDeltaMv = 0;            // 最大壓差 (mV)
+    public int activeCellCount = 13;     // 目前有效串數 (預設 13，可隨 BMS 狀態動態調整)
+    public int[] cellVoltages = new int[17]; // 支援最高 17 串單體電壓 (單位: mV)
     public float jkVoltage = 0;          // BMS 總電壓
     public float jkCurrent = 0;          // BMS 總電流
     public int jkSoc = 0;                // 剩餘電量 %
