@@ -314,5 +314,26 @@
 <string name="telemetry_torque_smooth_pct">扭力平滑度</string>
 <string name="dialog_select_telemetry">選擇資料</string> 
 <string name="telemetry_motor_erps">馬達電氣轉速</string>
+    <!-- 狀態資料 (Telemetry) -->
+    <string name="telemetry_speed">車速</string>
+    <string name="telemetry_cadence">踏頻</string>
+    <string name="telemetry_motor_power">馬達功率</string>
+    <string name="telemetry_pedal_power">踩踏功率</string>
+    <string name="telemetry_battery_current">電池電流</string>
+    <string name="telemetry_battery_voltage">電池電壓</string>
+    <string name="telemetry_motor_temp">馬達溫度</string>
+    <string name="telemetry_pcb_temp">控制板溫度</string>
+    <string name="telemetry_watt_hour">消耗能量</string>
+    <string name="telemetry_soc">剩餘電量 (SOC)</string>
+    <string name="telemetry_duty_cycle">佔空比</string>
+    <string name="telemetry_foc_angle">FOC 角度</string>
+    <string name="telemetry_pedal_torque">踏板扭力</string>
+    <string name="telemetry_torque_adc">扭力 ADC</string>
+    <string name="telemetry_motor_erps">馬達電氣轉速</string>
+    <string name="telemetry_fw_offset">弱磁偏移量</string>
+    <string name="telemetry_torque_smooth_pct">扭力平滑度</string>
+
+    <!-- 對話框 -->
+    <string name="dialog_select_telemetry">選擇資料</string>
 
 ​</resources> 
