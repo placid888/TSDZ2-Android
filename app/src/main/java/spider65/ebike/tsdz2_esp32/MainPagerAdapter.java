@@ -6,12 +6,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import spider65.ebike.tsdz2_esp32.data.TSDZ_Status;
-// 注意：我們已經不需要匯入 FragmentDebug 了
+import spider65.ebike.tsdz2_esp32.fragments.FragmentJkBattery; // 新增：電池詳細頁
 import spider65.ebike.tsdz2_esp32.fragments.FragmentStatus;
 import spider65.ebike.tsdz2_esp32.fragments.MyFragmentListener;
 
 public class MainPagerAdapter extends FragmentStateAdapter {
-    private final MyFragmentListener[] fragments = new MyFragmentListener[2];
+    // === 修改：總共有 3 個分頁 ===
+    private final MyFragmentListener[] fragments = new MyFragmentListener[3];
     private final TSDZ_Status mStatus;
 
     MainPagerAdapter(FragmentActivity fragmentActivity, TSDZ_Status status) {
@@ -25,16 +26,22 @@ public class MainPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3; // 改為 3 頁
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // === 核心修改：不管第一頁(0)還是第二頁(1)，我們都載入 FragmentStatus ===
-        // 並將 position (頁碼) 傳遞進去，讓它可以區分儲存空間
-        Fragment f = FragmentStatus.newInstance(mStatus, position);
-        fragments[position] = (MyFragmentListener)f;
+        Fragment f;
+        if (position == 0) {
+            f = FragmentStatus.newInstance(mStatus, 0); // 第一頁自訂網格
+        } else if (position == 1) {
+            f = FragmentStatus.newInstance(mStatus, 1); // 第二頁自訂網格
+        } else {
+            f = FragmentJkBattery.newInstance(mStatus); // 第三頁：JK BMS 詳細電池資訊
+        }
+        
+        fragments[position] = (MyFragmentListener) f;
         return f;
     }
 }
