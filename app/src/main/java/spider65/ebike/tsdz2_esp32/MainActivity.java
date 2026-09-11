@@ -566,7 +566,23 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
     }
 
-
+// === 將這段完整補回 checkBT() 的上方 ===
+    private void updateUIStatus() {
+        if (TSDZBTService.getBluetoothService() != null) {
+            fabButton.setImageResource(android.R.drawable.ic_media_pause);
+            serviceRunning = true;
+            if (TSDZBTService.getBluetoothService().getConnectionStatus() == TSDZBTService.ConnectionState.CONNECTED)
+                btStatus = BTStatus.Connected;
+            else
+                btStatus = BTStatus.Connecting;
+        } else {
+            fabButton.setImageResource(android.R.drawable.ic_media_play);
+            serviceRunning = false;
+            btStatus = BTStatus.Disconnected;
+        }
+        updateStatusIcons();
+    }
+    // ==========================================
     private void checkBT() {
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
