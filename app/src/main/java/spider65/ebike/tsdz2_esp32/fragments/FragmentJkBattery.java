@@ -38,7 +38,7 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setPadding(24, 24, 24, 24);
 
-        // 1. 上方總覽資訊 (給予明確的深色卡片背景與白色高對比文字)
+        // 1. 上方總覽資訊
         tvSummary = new TextView(getContext());
         tvSummary.setTextSize(14);
         tvSummary.setTextColor(Color.WHITE);
@@ -86,7 +86,7 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
     private void updateUI() {
         if (currentStatus == null) return;
 
-        // 更新上方豐富的總覽數據
+        // 更新上方豐富的總覽數據 (已將 jkDeltaMv 修正為傳入整數，對應 %d)
         String summary = String.format(Locale.getDefault(),
                 "電池功率: %.1f W   |   單體平均: %.3f V\n" +
                 "電池容量: %.1f Ah   |   最大壓差: %d mV\n" +
@@ -96,13 +96,20 @@ public class FragmentJkBattery extends Fragment implements MyFragmentListener {
                 "電池溫2: %.1f °C   |   均衡狀態: %s\n" +
                 "電池總壓: %.2f V   |   電池電流: %.2f A\n" +
                 "有效串數: %d 串",
-                currentStatus.jkPower, currentStatus.jkCellAvgMv / 1000.0f,
-                currentStatus.jkTotalCap, currentStatus.jkDeltaMv / 1000.0f,
-                currentStatus.jkRemainCap, currentStatus.jkBalCurrent,
-                currentStatus.jkTempFet, currentStatus.jkCycleCount,
-                currentStatus.jkTempBat, currentStatus.jkCycleCap,
-                currentStatus.jkTempBat2, currentStatus.jkBalancingOn ? "開啟" : "關閉",
-                currentStatus.jkVoltage, currentStatus.jkCurrent,
+                currentStatus.jkPower, 
+                currentStatus.jkCellAvgMv / 1000.0f,
+                currentStatus.jkTotalCap, 
+                currentStatus.jkDeltaMv, // 修正：此處為 int，對應上方的 %d
+                currentStatus.jkRemainCap, 
+                currentStatus.jkBalCurrent,
+                currentStatus.jkTempFet, 
+                currentStatus.jkCycleCount,
+                currentStatus.jkTempBat, 
+                currentStatus.jkCycleCap,
+                currentStatus.jkTempBat2, 
+                currentStatus.jkBalancingOn ? "開啟" : "關閉",
+                currentStatus.jkVoltage, 
+                currentStatus.jkCurrent,
                 currentStatus.activeCellCount
         );
         if (tvSummary != null) {
