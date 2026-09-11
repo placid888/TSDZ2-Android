@@ -51,6 +51,9 @@ public class FragmentStatus extends Fragment implements MyFragmentListener {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+        // === 殺手鐧：關閉 RecyclerView 預設的更新動畫，徹底消滅閃爍！ ===
+        recyclerView.setItemAnimator(null);
+
         adapter = new TelemetryAdapter(gridConfig, currentStatus);
         adapter.setOnItemLongClickListener(position -> showSelectionDialog(position));
         recyclerView.setAdapter(adapter);
