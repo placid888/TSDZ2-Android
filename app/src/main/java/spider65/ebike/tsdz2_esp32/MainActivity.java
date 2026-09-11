@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     private final TSDZ_Status status = new TSDZ_Status();
 
+    // === 新增：UI 刷新節流閥變數 ===
+    private long lastUiUpdateTime = 0;
+    private static final long UI_UPDATE_INTERVAL = 250; // 設定每 250 毫秒刷新一次 (1秒4次)
+
     private TextView modeLevelTV;
     private TextView statusTV;
     private ImageView brakeIV;
@@ -563,23 +567,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
 
-    private void updateUIStatus() {
-        if (TSDZBTService.getBluetoothService() != null) {
-            fabButton.setImageResource(android.R.drawable.ic_media_pause);
-            serviceRunning = true;
-            if (TSDZBTService.getBluetoothService().getConnectionStatus() == TSDZBTService.ConnectionState.CONNECTED)
-                btStatus = BTStatus.Connected;
-            else
-                btStatus = BTStatus.Connecting;
-        } else {
-            fabButton.setImageResource(android.R.drawable.ic_media_play);
-            serviceRunning = false;
-            btStatus = BTStatus.Disconnected;
-        }
-        updateStatusIcons();
-    }
-
-
     private void checkBT() {
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -702,8 +689,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 if (!Arrays.equals(lastStatusData, event.data)) {
                     if (status.setData(event.data)) {
                         lastStatusData = event.data;
-                        refreshView();
-                        mCurrentFragment.refreshView(status);
+                        
+                        // === 修改這段：加入時間判斷，限制刷新頻率 ===
+                        long currentTime = System.currentTimeMillis();
+                        if (currentTime - lastUiUpdateTime > UI_UPDATE_INTERVAL) {
+                            refreshView();                            // 更新底部圖示
+                            mCurrentFragment.refreshView(status);     // 更新數據卡片
+                            lastUiUpdateTime = currentTime;           // 記錄這次更新的時間
+                        }
                     }
                 }
                 break;
